@@ -2,18 +2,48 @@
  * App Component
  *
  * This is the root component of the application.
- * It manages the overall layout (sidebar + main workspace) and
- * handles state for which section is currently active.
+ * It manages:
+ * - Overall layout (sidebar + main workspace + status bar)
+ * - Active section navigation
+ * - Project state (current project, if any)
+ * - Modal state (new project modal, etc.)
  */
 
 import { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import MainWorkspace from './components/MainWorkspace';
+import StatusBar from './components/StatusBar';
+import NewProjectModal, { ProjectConfig } from './components/NewProjectModal';
 import { SidebarSection } from './types';
 
 function App() {
-  // State to track which sidebar section is currently active
+  // Navigation state
   const [activeSection, setActiveSection] = useState<SidebarSection>('home');
+
+  // Project state
+  const [currentProject, setCurrentProject] = useState<ProjectConfig | null>(null);
+
+  // Modal state
+  const [isNewProjectModalOpen, setIsNewProjectModalOpen] = useState(false);
+
+  // Handler for creating a new project
+  const handleCreateProject = (config: ProjectConfig) => {
+    setCurrentProject(config);
+    setIsNewProjectModalOpen(false);
+    // Optionally switch to a different section after creating project
+    // setActiveSection('focus'); // For example, go to focus tree editor
+  };
+
+  // Handler for opening new project modal
+  const handleNewProject = () => {
+    setIsNewProjectModalOpen(true);
+  };
+
+  // Handler for opening existing project
+  const handleOpenProject = () => {
+    // TODO: Implement file dialog to open .hoi4mod file
+    alert('Open Project functionality coming soon!\n\nThis will use Tauri\'s file dialog to select a .hoi4mod file.');
+  };
 
   return (
     <div className="flex h-screen bg-hoi4-dark text-white overflow-hidden">
@@ -24,19 +54,24 @@ function App() {
       />
 
       {/* Main Content Area */}
-      <MainWorkspace activeSection={activeSection} />
+      <MainWorkspace
+        activeSection={activeSection}
+        onNewProject={handleNewProject}
+        onOpenProject={handleOpenProject}
+      />
 
       {/* Status Bar at the bottom */}
-      <div className="fixed bottom-0 left-0 right-0 bg-hoi4-darker border-t border-hoi4-gold/20 px-4 py-2 flex items-center justify-between no-select">
-        <div className="text-xs text-gray-400">
-          <span>Status: Ready</span>
-          <span className="ml-4">•</span>
-          <span className="ml-4">Project: No project loaded</span>
-        </div>
-        <div className="text-xs text-gray-400">
-          HOI4 Mod Maker Pro v0.1.0
-        </div>
-      </div>
+      <StatusBar
+        status="ready"
+        projectName={currentProject?.name}
+      />
+
+      {/* New Project Modal */}
+      <NewProjectModal
+        isOpen={isNewProjectModalOpen}
+        onClose={() => setIsNewProjectModalOpen(false)}
+        onCreateProject={handleCreateProject}
+      />
     </div>
   );
 }

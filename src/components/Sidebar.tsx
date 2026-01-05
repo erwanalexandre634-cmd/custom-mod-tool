@@ -72,21 +72,13 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
           <div key={item.id}>
             <button
               onClick={() => onSectionChange(item.id)}
-              className={`
-                w-full px-4 py-3 flex items-center gap-3 text-left
-                transition-colors duration-150 no-select
-                ${
-                  activeSection === item.id
-                    ? 'bg-hoi4-gold/20 text-hoi4-gold border-l-4 border-hoi4-gold'
-                    : 'text-gray-300 hover:bg-hoi4-dark hover:text-white'
-                }
-              `}
+              className={`sidebar-item w-full no-select ${activeSection === item.id ? 'active' : ''}`}
             >
               {item.icon}
-              <span className="text-sm font-medium">{item.label}</span>
+              <span>{item.label}</span>
             </button>
             {item.dividerAfter && (
-              <div className="my-2 mx-4 border-t border-hoi4-gold/20" />
+              <div className="divider mx-4" />
             )}
           </div>
         ))}

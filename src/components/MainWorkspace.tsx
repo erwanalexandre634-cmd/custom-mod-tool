@@ -2,51 +2,89 @@
  * MainWorkspace Component
  *
  * This is the main content area that changes based on which sidebar
- * section is active. For now, it shows placeholder content for each section.
+ * section is active. Displays different editors and views.
  */
 
 import { SidebarSection } from '../types';
+import { FileText, FolderOpen, Package, Clock } from 'lucide-react';
 
 interface MainWorkspaceProps {
   activeSection: SidebarSection;
+  onNewProject?: () => void;
+  onOpenProject?: () => void;
 }
 
-export default function MainWorkspace({ activeSection }: MainWorkspaceProps) {
+export default function MainWorkspace({ activeSection, onNewProject, onOpenProject }: MainWorkspaceProps) {
   const renderContent = () => {
     switch (activeSection) {
       case 'home':
         return (
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-hoi4-gold mb-4">
+            <h1 className="text-4xl font-bold text-gold mb-4" style={{ color: '#c9a227' }}>
               Welcome to HOI4 Mod Maker Pro
             </h1>
-            <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+            <p className="mb-12 max-w-2xl mx-auto" style={{ color: '#e0e0e0', fontSize: '16px' }}>
               Create professional Hearts of Iron IV mods through a visual,
               user-friendly interface. No coding knowledge required.
             </p>
-            <div className="grid grid-cols-2 gap-4 max-w-3xl mx-auto">
-              <div className="bg-hoi4-dark p-6 rounded-lg border border-hoi4-gold/30">
-                <h3 className="text-hoi4-gold font-bold mb-2">New Project</h3>
-                <p className="text-gray-400 text-sm">
-                  Start a fresh mod from scratch
+            <div className="grid grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {/* New Project Card */}
+              <div
+                className="card card-clickable"
+                onClick={onNewProject}
+                style={{ textAlign: 'left' }}
+              >
+                <div style={{ marginBottom: '16px' }}>
+                  <FileText size={32} color="#c9a227" />
+                </div>
+                <h3 className="card-title">New Project</h3>
+                <p className="card-description">
+                  Start a fresh mod from scratch with our guided setup wizard
                 </p>
               </div>
-              <div className="bg-hoi4-dark p-6 rounded-lg border border-hoi4-gold/30">
-                <h3 className="text-hoi4-gold font-bold mb-2">Open Project</h3>
-                <p className="text-gray-400 text-sm">
-                  Load an existing .hoi4mod file
+
+              {/* Open Project Card */}
+              <div
+                className="card card-clickable"
+                onClick={onOpenProject}
+                style={{ textAlign: 'left' }}
+              >
+                <div style={{ marginBottom: '16px' }}>
+                  <FolderOpen size={32} color="#c9a227" />
+                </div>
+                <h3 className="card-title">Open Project</h3>
+                <p className="card-description">
+                  Load an existing .hoi4mod project file to continue editing
                 </p>
               </div>
-              <div className="bg-hoi4-dark p-6 rounded-lg border border-hoi4-gold/30">
-                <h3 className="text-hoi4-gold font-bold mb-2">Import Mod</h3>
-                <p className="text-gray-400 text-sm">
-                  Import from game files or .zip
+
+              {/* Import Mod Card */}
+              <div
+                className="card card-clickable"
+                onClick={() => alert('Import Mod functionality coming soon!\n\nThis will allow you to import existing HOI4 mods from game files or .zip archives.')}
+                style={{ textAlign: 'left' }}
+              >
+                <div style={{ marginBottom: '16px' }}>
+                  <Package size={32} color="#c9a227" />
+                </div>
+                <h3 className="card-title">Import Mod</h3>
+                <p className="card-description">
+                  Import from game files or .zip to edit existing mods
                 </p>
               </div>
-              <div className="bg-hoi4-dark p-6 rounded-lg border border-hoi4-gold/30">
-                <h3 className="text-hoi4-gold font-bold mb-2">Recent Projects</h3>
-                <p className="text-gray-400 text-sm">
-                  View your recent work
+
+              {/* Recent Projects Card */}
+              <div
+                className="card card-clickable"
+                onClick={() => alert('Recent Projects functionality coming soon!\n\nThis will show your recently opened projects for quick access.')}
+                style={{ textAlign: 'left' }}
+              >
+                <div style={{ marginBottom: '16px' }}>
+                  <Clock size={32} color="#c9a227" />
+                </div>
+                <h3 className="card-title">Recent Projects</h3>
+                <p className="card-description">
+                  Quick access to your recently opened mod projects
                 </p>
               </div>
             </div>
