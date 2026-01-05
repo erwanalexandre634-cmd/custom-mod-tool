@@ -9,16 +9,22 @@ This application is built with:
 - **Backend**: Rust + Tauri
 - **Build Tool**: Vite
 
-## Features (Planned)
+## Features
 
-### Phase 1 - Foundation (✅ COMPLETED)
+### Phase 1 - Foundation & UI (✅ COMPLETED)
 - [x] Project setup with Tauri + React + TypeScript
-- [x] Tailwind CSS styling with HOI4-inspired theme
-- [x] Sidebar navigation
-- [x] Basic routing between sections
+- [x] Tailwind CSS with professional HOI4-inspired theme
+- [x] Sidebar navigation with smooth transitions
+- [x] Routing between sections
 - [x] Data model definitions
+- [x] **Professional button styles (gold gradients, hover effects)**
+- [x] **Beautiful clickable cards with animations**
+- [x] **StatusBar component showing project status**
+- [x] **NewProjectModal with form validation**
+- [x] **Project state management**
+- [x] **Fully functional home screen**
 
-### Phase 2 - Core Editors (In Progress)
+### Phase 2 - Core Editors (Next)
 - [ ] Localisation system
 - [ ] Condition Builder component
 - [ ] Effect Builder component
@@ -68,6 +74,38 @@ hoi4-mod-maker-pro/
 ├── tailwind.config.js     # Tailwind CSS configuration
 └── package.json           # Node.js dependencies and scripts
 ```
+
+## 🚀 Quick Start
+
+### Running the Application
+
+```bash
+# Install dependencies (first time only)
+npm install
+
+# Run in development mode
+npm run tauri dev
+```
+
+The application window will open, and you can:
+- ✨ Click "New Project" to open the beautiful modal dialog
+- ✨ Fill out the form and create a project
+- ✨ Watch the status bar update with your project name
+- ✨ Navigate through different sections using the sidebar
+- ✨ Experience smooth animations and hover effects
+
+### Building for Windows
+
+See **[BUILD_INSTRUCTIONS.md](./BUILD_INSTRUCTIONS.md)** for detailed steps to build the .exe file on Windows.
+
+Quick version:
+```bash
+npm run tauri build
+```
+
+This creates:
+- `src-tauri/target/release/hoi4-mod-maker-pro.exe` (portable executable)
+- Installer in `src-tauri/target/release/bundle/nsis/`
 
 ## Development Setup
 
